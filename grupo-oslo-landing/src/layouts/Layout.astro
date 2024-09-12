@@ -1,6 +1,10 @@
 ---
+import BurgerMenu from '../components/BurgerMenu';
+import Logo from '../components/Logo.astro';
+import Navbar from '../components/Navbar.astro';
+
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,43 +12,82 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />   
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Navbar visible solo en pantallas grandes -->
+    <div class="hidden lg:block">
+      <Navbar />
+    </div>
+
+		<div class="hidden lg:block">
+			<Logo />
+		</div>
+
+    <!-- BurgerMenu visible solo en pantallas pequeñas -->
+    <div class="block lg:hidden">
+      <BurgerMenu  client:load/>
+    </div>
+
+    <slot />
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+
+<style>
+	@font-face {
+		font-family: 'ManropeBold';
+		src: url('/fonts/Manrope-Bold.woff2') format('woff2'),
+				url('/fonts/Manrope-Bold.woff') format('woff'),
+				url('/fonts/Manrope-Bold.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'ManropeMedium';
+		src: url('/fonts/Manrope-Medium.woff2') format('woff2'),
+				url('/fonts/Manrope-Medium.woff') format('woff'),
+				url('/fonts/Manrope-Medium.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'IvyPrestoTextSemiBold';
+		src: url('/fonts/IvyPrestoText-SemiBold.woff2') format('woff2'),
+				url('/fonts/IvyPrestoText-SemiBold.woff') format('woff');
+				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'IvyPrestoTextLight';
+		src: url('/fonts/IvyPrestoDisplay-Light.woff2') format('woff2'),
+				url('/fonts/IvyPrestoDisplay-Light.woff') format('woff');
+				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'IvyPrestoTextLightItalic';
+		src: url('/fonts/IvyPrestoDisplay-LightItalic.woff2') format('woff2'),
+				url('/fonts/IvyPrestoDisplay-LightItalic.woff') format('woff');
+				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
+		font-weight: normal;
+		font-style: normal;
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+		font-family: 'ManropeMedium', sans-serif;
+		font-weight: medium;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+</style>
+<style is:global>
+	.text-ivydisplay {
+		font-family: 'IvyPrestoTextLightItalic', sans-serif;
+		font-weight: 500;
 	}
 </style>

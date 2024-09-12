@@ -1,1 +1,0 @@
-# grupo-oslo-landing

@@ -1,24 +1,35 @@
 ---
 interface Props {
-	title: string;
-	body: string;
-	href: string;
+  title: string;
+  cel: string;
+  contact: string;
+  web: string;
+  href: string;
+  logo?: string;
+  alt?: string;
+  color?: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, cel, contact, web, logo, alt, color } = Astro.props;
+
+// Definir el objeto con una firma de índice
+const colors: { [key: string]: string } = {
+  "orange-oslo": "bg-orangeoslo",
+  "grey-oslo": "bg-greyoslo",
+  // Agrega más colores si es necesario
+};
+
+const bgColor = color && colors[color] ? colors[color] : "bg-orange-400";
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
-<style>
-	
-</style>
+<div class={`w-full rounded-md p-4 ${bgColor} my-5`}>
+  <p class="text-maropebold uppercase bold text-white py-4">{title}/</p>
+  <p class="text-white">{cel}</p>
+  <p class="text-white">{contact}</p>
+  <a href={href} class="w-full">
+    <p class="text-ivydisplay text-xl text-white">{web}</p>
+  </a>
+  <div class="flex justify-center">
+    {logo && <img src={logo} alt={alt} class="mt-36 w-full" />}
+  </div>
+</div>

@@ -1,19 +1,33 @@
 ---
-import Card from "../components/Card.astro";
 import Slogan from "../components/Slogan.astro";
+import Manifest from "../components/Manifest.astro";
 import Layout from "../layouts/Layout.astro";
+import UnitWeb from "../components/UnitWeb.astro";
+import Leadership from "../components/Leadership.astro";
+import TerritoryWeb from "../components/TerritoryWeb.astro";
+import TeamWeb from "../components/TeamWeb.astro";
+import Partners from "../components/Partners.astro";
+import Carousel from "../components/Carousel.astro";
+import Prefooter from "../components/Prefooter.astro";
+
+import UnitMobile from "../components/UnitMobile.astro";
+import TerritoryMobile from "../components/TerritoryMobile.astro";
+import TeamMobile from "../components/TeamMobile.astro";
 ---
 
 <Layout title="Grupo OSLO">
   <main>
     <!-- seccion slogan -->
-    <section class="px-4 pt-20" id="slogan">
+    <section class="px-4 pt-20 md:pt-2" id="slogan">
       <Slogan />
     </section>
 
     <!-- seccion imagen terre terraza -->
     <section class="p-4" id="imagen-terre-teraza">
-      <div class="w-full h-[500px] overflow-hidden relative rounded-lg mt-5">
+      <div
+        class="w-full h-[500px] md:h-[700px] overflow-hidden relative rounded-lg mt-5 transition-all duration-300"
+        id="logo"
+      >
         <img
           src="images/PR_Terre_Terraza_08_5k.jpg"
           alt="Terre Terraza Grupo Oslo"
@@ -24,58 +38,20 @@ import Layout from "../layouts/Layout.astro";
 
     <!-- seccion manifiesto -->
     <section class="p-4" id="manifiesto">
-      <div class="flex justify-center py-8 uppercase">
-        <h2>Manifiesto</h2>
-      </div>
-      <p class="text-2xl text-center">
-        Somos un <span class="text-ivydisplay uppercase">grupo empresario</span>
-        dedicado de forma integral al <span class="text-ivydisplay"
-          >ciclo del</span
-        >
-        <span class="text-ivydisplay uppercase">real state.</span> Desde el scouting
-        de terrenos, desarrollo de proyectos y administración de obras, hasta la
-        comercialización de propiedades propias y de terceros.
-      </p>
+      <Manifest />
     </section>
 
     <!-- seccion unidades -->
     <section class="flex flex-wrap justify-center mt-10 p-4" id="unidades">
-      <Card
-        title="Propiedades"
-        cel="+54 11 1234 5678"
-        contact="contacto@oslopropiedades.com"
-        web="oslopropiedades.com.ar"
-        href="/unit"
-        logo="/logos/Oslo-01.png"
-        alt="isotipo oslo"
-        color="orange-oslo"
-      />
-      <div>
-        <h3 class="text-ivydisplay text-xl my-4">Oslo Propiedades</h3>
-        <p class="mb-10">
-          Ofrece un servicio completo en la compra y venta de propiedades.
-          Nuestro equipo está dedicado a encontrar el hogar o la inversión
-          perfecta para cada cliente, brindando asesoramiento personalizado y
-          soluciones a medida.
-        </p>
+      <!-- solo se ve en pantallas grandes -->
+      <div class="hidden lg:block py-10 md:px-20">
+        <h2 class="text-2xl py-10">UNIDADES DE NEGOCIO</h2>
+        <UnitWeb />
       </div>
-      <Card
-        title="Desarrollos"
-        cel="+54 11 1234 5678"
-        contact="contacto@pbgdesarrollos.com"
-        web="pbgdesarrollos.com.ar"
-        href="/unit"
-        logo="/logos/PBG-01.png"
-        alt="isotipo oslo"
-        color="grey-oslo"
-      />
-      <div>
-        <h3 class="text-ivydisplay text-xl my-4">PBG Desarrollos</h3>
-        <p class="mb-10">
-          Se especializa en crear proyectos innovadores que redefinen el
-          estándar de calidad. Nuestro enfoque integral asegura resultados
-          excepcionales desde la planificación hasta la entrega.
-        </p>
+      <!----------------------------------------->
+
+      <div class="block lg:hidden">
+        <UnitMobile />
       </div>
     </section>
 
@@ -95,102 +71,32 @@ import Layout from "../layouts/Layout.astro";
       <h3 class="uppercase text-xl my-20 text-white flex justify-center">
         Liderazgo
       </h3>
-      <p class="text-2xl text-center text-white px-4">
-        Con una mentalidad <span class="text-ivydisplay uppercase"
-          >joven e innovadora,</span
-        > nuestra visión es <span class="text-ivydisplay uppercase"
-          >liderar el mercado,</span
-        > garantizar el <span class="text-ivydisplay uppercase"
-          >éxito en los negocios,</span
-        > con calidad e innovación como pilares fundamentales y mejorar continuamente
-        la experiencia del cliente
-      </p>
-
-      <div class="flex flex-wrap justify-center mt-20 py-4 px-8">
-        <img
-          src="images/EQUIPO-GRUPO-OSLO-(9).jpg"
-          alt="Patricio Rozenblum | Co-founder"
-          class="w-full my-4 rounded-md"
-        />
-        <p class="text-white mb-4">
-          Patricio Rozenblum | <span class="text-ivydisplay">Co-founder</span>
-        </p>
-        <img
-          src="images/EQUIPO-GRUPO-OSLO-(5).jpg"
-          alt="Marcelo Saul | Co-founder"
-          class="w-full my-4 rounded-md"
-        />
-        <p class="text-white mb-4">
-          Marcelo Saul | <span class="text-ivydisplay">Co-founder</span>
-        </p>
-        <img
-          src="images/EQUIPO-GRUPO-OSLO-(19).jpg"
-          alt="Guido Cabrosi | Co-founder"
-          class="w-full my-4 rounded-md"
-        />
-        <p class="text-white mb-4">
-          Guido Cabrosi | <span class="text-ivydisplay">Co-founder</span>
-        </p>
-      </div>
-      <br />
-      <br />
-      <br />
+      <Leadership />
     </section>
 
     <!-- seccion territorios -->
     <section id="territorios" class="mb-28">
-      <div class="w-full overflow-hidden relative p-4 mt-20">
+      <div class="w-full overflow-hidden relative p-4 lg:px-32 mt-20">
         <h2 class="text-4xl uppercase">
           Territorios <span class="text-ivydisplay">e</span> Industrias:
         </h2>
-        <div class="mt-10">
-          <p class="text-3xl">
-            &#8594;Argentina <span class="text-ivydisplay">&</span> España
-          </p>
-          <p class="text-3xl">
-            &#8594;Residencial, Corporativo, Comercial, Hotelería
-          </p>
-        </div>
-        <div
-          class="flex justify-between items-end border-b-2 p-4 mt-10 hover:border-b-black"
-        >
-          <p class="text-ivydisplay text-6xl">20+</p>
-          <p class="text-md uppercase">años de trayectoria</p>
-        </div>
-        <div
-          class="flex justify-between items-end border-b-2 p-4 hover:border-b-black"
-        >
-          <p class="text-ivydisplay text-6xl">10+</p>
-          <p class="text-md uppercase">emprendimientos</p>
-        </div>
-        <div
-          class="flex justify-between items-end border-b-2 p-4 hover:border-b-black"
-        >
-          <p class="text-ivydisplay text-6xl">50k +</p>
-          <p class="text-md uppercase">metros construidos</p>
-        </div>
+        <!-- Solo en pantallas mobiles -->
+        <TerritoryMobile />
+
+        <!-- Solo en pantallas grandes -->
+        <TerritoryWeb />
       </div>
     </section>
+
+    
     <!-- seccion imagenes y team -->
     <section id="imagenes_terre_la_imprenta" class="mb-20">
-      <div class="w-full mt-10 p-4 flex-col md:flex gap-4">
-        <div class="w-full h-[250px] overflow-hidden relative rounded-lg mt-5">
-          <img
-            src="images/1201_Post.jpg"
-            alt="Proyecto Terre la Imprenta"
-            class="w-full h-full object-cover absolute top-0 left-0"
-          />
-        </div>
-        <p class="uppercase text-xs mt-4">Proyecto Terre la Imprenta</p>
-        <div class="w-full h-[250px] overflow-hidden relative rounded-lg mt-5">
-          <img
-            src="images/PR_Terre_Depto_Terraza_02_5k.jpg"
-            alt="Terraza Terre la Imprenta"
-            class="w-full h-full object-cover absolute top-0 left-0"
-          />
-        </div>
-        <p class="uppercase text-xs mt-4">Terraza Terre la Imprenta</p>
-      </div>
+      <!-- solo en pantallas chicas -->
+      <TeamMobile />
+      <!-- solo en pantallas chicas -->
+      <!-- solo en pantallas grandes -->
+      <TeamWeb />
+      <!-- solo en pantallas grandes -->
     </section>
 
     <!-- seccion imagen team -->
@@ -199,71 +105,14 @@ import Layout from "../layouts/Layout.astro";
     </section>
 
     <!-- seccion partners -->
-    <section id="partners" class="my-20 p-4">
-      <h3 class="text-4xl uppercase">Partners</h3>
-      <p class="text-xl mt-4">
-        Contamos con el respaldo de <span class="text-ivydisplay uppercase"
-          >prestigiosos estudios</span
-        >
-        de arquitectura y diseño, garantizando así la calidad y excelencia en todos
-        nuestros proyectos.
-      </p>
-
-      <div class="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item">
-            <img src="/logos/abranzon.png" alt="" class="w-40" />
-          </div>
-          <div class="carousel-item">
-            <img src="/logos/Aisenson ARQ-02.png" alt="" class="w-40" />
-          </div>
-          <div class="carousel-item">
-            <img src="/logos/Gradel.jpg" alt="" class="w-40" />
-          </div>
-          <div class="carousel-item">
-            <img src="/logos/pacifica.png" alt="" class="w-40" />
-          </div>
-        </div>
-      </div>
+    <section id="partners" class="my-20 p-4 px-32">
+      <Partners />
+      <Carousel />
     </section>
 
     <!-- seccion prefooter -->
-     <section id="prefooter" class="bg-beigeoslo pb-72 pt-32 px-10">
-        <p class="text-xl text-center">
-          Grupo Oslo transforma el <span class="text-ivydisplay uppercase">Real Estate</span> a través de sus 
-          unidades de negocio dedicadas al desarrollo y la gestión de <span class="text-ivydisplay uppercase">propiedades y emprendimientos.</span> 
-        </p>
-     </section>      
+    <section id="prefooter" class="bg-beigeoslo pb-72 pt-32 px-10">
+      <Prefooter />
+    </section>
   </main>
 </Layout>
-
-<style>
-  .carousel {
-    width: 100%;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    display: flex;
-    scroll-snap-type: x mandatory;
-  }
-
-  .carousel-inner {
-    display: flex;
-    width: 100%;
-  }
-
-  .carousel-item {
-    flex: 0 0 50%;
-    scroll-snap-align: start;
-    width: 100%;
-    height: 200px; /* Puedes ajustar la altura según necesites */
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-  }
-
-  
-
-
-</style>

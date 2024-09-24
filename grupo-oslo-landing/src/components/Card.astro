@@ -8,9 +8,10 @@ interface Props {
   logo?: string;
   alt?: string;
   color?: string;
+  width?: string;
 }
 
-const { href, title, cel, contact, web, logo, alt, color } = Astro.props;
+const { href, title, cel, contact, web, logo, alt, color, width } = Astro.props;
 
 // Definir el objeto con una firma de índice
 const colors: { [key: string]: string } = {
@@ -18,6 +19,8 @@ const colors: { [key: string]: string } = {
   "grey-oslo": "bg-greyoslo",
   // Agrega más colores si es necesario
 };
+
+const widthStyle = width ? `${width}` : "w-full";
 
 const bgColor = color && colors[color] ? colors[color] : "bg-orange-400";
 ---
@@ -30,6 +33,6 @@ const bgColor = color && colors[color] ? colors[color] : "bg-orange-400";
     <p class="text-ivydisplay text-xl text-white">{web}</p>
   </a>
   <div class="flex justify-center">
-    {logo && <img src={logo} alt={alt} class="mt-36 w-full" />}
+    {logo && <img src={logo} alt={alt} class={`mt-36 ${widthStyle}`} />}
   </div>
 </div>

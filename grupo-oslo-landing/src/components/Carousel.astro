@@ -1,0 +1,49 @@
+---
+---
+
+<div class="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item">
+      <img src="/logos/abranzon.png" alt="" class="w-40" />
+    </div>
+    <div class="carousel-item">
+      <img src="/logos/Aisenson ARQ-02.png" alt="" class="w-40" />
+    </div>
+    <div class="carousel-item">
+      <img src="/logos/Gradel.jpg" alt="" class="w-40" />
+    </div>
+    <div class="carousel-item">
+      <img src="/logos/pacifica.png" alt="" class="w-40" />
+    </div>
+  </div>
+</div>
+
+
+<style> 
+
+.carousel {
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    scroll-snap-type: x mandatory;
+  }
+
+  .carousel-inner {
+    display: flex;
+    width: 100%;
+  }
+
+  .carousel-item {
+    flex: 0 0 50%;
+    scroll-snap-align: start;
+    width: 100%;
+    height: 200px; /* Puedes ajustar la altura según necesites */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }  
+
+</style>

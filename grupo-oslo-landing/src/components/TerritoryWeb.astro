@@ -12,19 +12,29 @@
   </div>
   <div class="flex justify-between pt-10">
     <div class="flex flex-col justify-center items-center">
-      <p class="text-ivydisplay text-20xl">20+</p>
+      <div class="flex text-20xl text-ivydisplay ">
+        <p class=" animate-number" data-number="20">0</p>
+        <span>+</span>
+      </div>
       <p class="text-md uppercase">años de trayectoria</p>
     </div>
     <div class="flex flex-col justify-center items-center">
-      <p class="text-ivydisplay text-20xl">10+</p>
+      <div class="flex text-20xl text-ivydisplay ">
+        <p class=" animate-number" data-number="10">0</p>
+        <span>+</span>
+      </div>
       <p class="text-md uppercase">emprendimientos</p>
     </div>
     <div class="flex flex-col justify-center items-center">
-      <p class="text-ivydisplay text-20xl">50k +</p>
+      <div class="flex text-20xl text-ivydisplay ">
+        <p class=" animate-number" data-number="50">0</p>
+        <span>+</span>
+      </div>
       <p class="text-md uppercase">metros construidos</p>
     </div>
   </div>
 </div>
+
 
 
 <style>
@@ -32,3 +42,53 @@
     font-size: 10rem;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  // Selecciona todos los elementos que deben ser animados
+  const numberElements = document.querySelectorAll<HTMLElement>('.animate-number');
+
+  // Función para animar el conteo de números
+  function animateNumber(element: HTMLElement): void {
+    const endValue = parseInt(element.getAttribute('data-number') || '0', 10); 
+    let startValue = 0;
+    const duration = 8000; 
+    const increment = Math.ceil(endValue / (duration / 16)); 
+
+    // Reiniciar el contenido del número a 0 cada vez que se vuelva a animar
+    element.textContent = '0'; 
+
+    function updateNumber() {
+      startValue += increment;
+      if (startValue > endValue) startValue = endValue;
+      element.textContent = `${startValue}${element.dataset.suffix || ''}`;
+
+      if (startValue < endValue) {
+        requestAnimationFrame(updateNumber); 
+      }
+    }
+
+    requestAnimationFrame(updateNumber);
+  }
+
+  // Configuración del IntersectionObserver
+  const observerOptions: IntersectionObserverInit = {
+    threshold: 0.5, 
+  };
+
+  // Crear el IntersectionObserver con tipos para TypeScript
+  const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
+      if (entry.isIntersecting) {        
+        animateNumber(entry.target as HTMLElement);
+      }
+    });
+  }, observerOptions);
+
+  // Observar todos los elementos con la clase 'animate-number'
+  numberElements.forEach((element: HTMLElement) => observer.observe(element));
+});
+
+
+
+</script>

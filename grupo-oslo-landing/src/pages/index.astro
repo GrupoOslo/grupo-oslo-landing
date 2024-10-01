@@ -18,27 +18,22 @@ import TeamMobile from "../components/TeamMobile.astro";
 <Layout title="Grupo OSLO">
   <main>
     <!-- seccion slogan -->
-    <section class="px-4 pt-20 md:pt-2" id="slogan">
+    <section class="px-4 pt-28 md:pt-2 md:h-[100vh]" id="slogan">
       <Slogan />
     </section>
 
     <!-- seccion imagen terre terraza -->
     <section class="p-4" id="imagen-terre-teraza">
-      <div
-        class="w-full h-[500px] md:h-[700px] overflow-hidden relative rounded-lg mt-5 transition-all duration-300"
-        id="logo"
-      >
-        <img
-          src="images/PR_Terre_Terraza_08_5k.jpg"
-          alt="Terre Terraza Grupo Oslo"
-          class="w-full h-full object-cover absolute top-0 left-0"
-        />
+   
+      <div class="parallax-container relative h-[500px] md:h-[700px] mt-5 overflow-hidden rounded-lg">
+        <div class="parallax-image absolute inset-0 bg-cover bg-center"></div>
       </div>
+
     </section>
 
     <!-- seccion manifiesto -->
     <section class="p-4" id="manifiesto">
-      <Manifest />
+      <Manifest/>
     </section>
 
     <!-- seccion unidades -->
@@ -57,12 +52,15 @@ import TeamMobile from "../components/TeamMobile.astro";
 
     <!-- seccion imagen salon gourmet -->
     <section id="imagen-salon-gourmet">
-      <div class="w-full h-[700px] overflow-hidden relative mt-5">
+      <!-- <div class="w-full h-[700px] overflow-hidden relative mt-5">
         <img
           src="images/SUM-Salon-Gourmet.jpg"
           alt="Salon Gourmet Grupo Oslo"
           class="w-full h-full object-cover absolute top-0 left-0"
         />
+      </div> -->
+      <div class="parallax-container relative h-[500px] md:h-[700px] mt-5 overflow-hidden">
+        <div class="parallax-image-gourmet absolute inset-0 bg-cover bg-center"></div>
       </div>
     </section>
 
@@ -88,7 +86,7 @@ import TeamMobile from "../components/TeamMobile.astro";
       </div>
     </section>
 
-    
+
     <!-- seccion imagenes y team -->
     <section id="imagenes_terre_la_imprenta" class="mb-20">
       <!-- solo en pantallas chicas -->
@@ -101,18 +99,90 @@ import TeamMobile from "../components/TeamMobile.astro";
 
     <!-- seccion imagen team -->
     <section id="imagen-team" class="mb-20">
-      <img src="images/EQUIPO-GRUPO-OSLO-grupal.jpg" alt="Equipo Grupo Oslo" />
+      <img src="images/EQUIPO-GRUPO-OSLO-grupal.jpg" alt="Equipo Grupo Oslo" />      
     </section>
 
     <!-- seccion partners -->
-    <section id="partners" class="my-20 p-4 px-32">
+    <section id="partners" class="my-8 md:my-20 p-4 md:px-32">
       <Partners />
       <Carousel />
     </section>
 
     <!-- seccion prefooter -->
-    <section id="prefooter" class="bg-beigeoslo pb-72 pt-32 px-10">
+    <section id="prefooter" class="bg-beigeoslo pb-72 pt-32">
       <Prefooter />
     </section>
   </main>
 </Layout>
+
+<style>
+.parallax-container {
+  position: relative; 
+  overflow: hidden;
+  /* height: 100%; */
+}
+
+.parallax-image {
+  background-image: url('images/PR_Terre_Terraza_08_5k.jpg'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 150%; 
+  position: absolute;
+  top: -300px;
+  left: 0;
+}
+
+.parallax-image-gourmet {
+  background-image: url('images/SUM-Salon-Gourmet.jpg'); 
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 150%; 
+  position: absolute;
+  top: -1200px;
+  left: 0;
+}
+
+
+
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar el contenedor de la imagen con verificación de tipo
+    const parallaxImage = document.querySelector('.parallax-image') as HTMLElement;
+    const parallaxImageGourmet = document.querySelector('.parallax-image-gourmet') as HTMLElement;
+    const parallaxImageTeam = document.querySelector('.parallax-image-team') as HTMLElement;
+   
+    if (parallaxImage) {
+      // Evento de scroll para aplicar el efecto parallax
+      window.addEventListener('scroll', function () {
+        // Calcular el valor de desplazamiento del scroll
+        const scrollPosition = window.scrollY;
+
+        // Aplicar la transformación en el eje Y para mover la imagen más lento que el contenido
+        parallaxImage.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+      });
+    } else {
+      console.error('No se encontró el contenedor de la imagen parallax');
+    }
+
+    if (parallaxImageGourmet) {
+      // Evento de scroll para aplicar el efecto parallax
+      window.addEventListener('scroll', function () {
+        // Calcular el valor de desplazamiento del scroll
+        const scrollPosition = window.scrollY;
+        parallaxImageGourmet.style.transform = `translateY(${scrollPosition * 0.3}px)`; 
+      });
+    } else {
+      console.error('No se encontró el contenedor de la imagen parallax');
+    } 
+  
+
+  });
+
+  
+</script>

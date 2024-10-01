@@ -2,7 +2,7 @@
 ---
 
 <div class="hidden lg:block px-32 py-10">
-  <div class="grid grid-cols-[2fr,1fr] gap-4">
+  <div class="grid grid-cols-[2fr,1fr] gap-4 animate-left ">
     <div class="py-20">
       <div class="w-full h-[450px] overflow-hidden relative rounded-lg mt-5">
         <img
@@ -15,7 +15,7 @@
     </div>
     <div></div>
   </div>
-  <div class="grid grid-cols-[1fr,2fr] gap-4">
+  <div class="grid grid-cols-[1fr,2fr] gap-4 animate-right">
     <div></div>
     <div>
       <div class="w-full h-[450px] overflow-hidden relative rounded-lg mt-5">
@@ -29,3 +29,92 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Animación de la primera imagen desde la izquierda */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* Animación de la tercera imagen desde la derecha */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-left-visible {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-right-visible {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+/* Clases ocultas iniciales */
+
+.animate-left,
+.animate-right {
+  opacity: 0; /* Inicialmente invisible */
+}
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar los elementos que serán animados
+    const textElement = document.querySelector('.animate-text');
+    const elementsLeft = document.querySelectorAll('.animate-left');
+    const elementsBottom = document.querySelectorAll('.animate-bottom');
+    const elementsRight = document.querySelectorAll('.animate-right');
+
+    // Opciones del IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1, // Activar cuando el 10% del elemento esté visible
+    };
+
+    // Función para manejar la entrada de los elementos en la vista
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Cuando el elemento entra en la vista
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('animate-text')) {
+            entry.target.classList.add('animate-text-visible');
+          } else if (entry.target.classList.contains('animate-left')) {
+            entry.target.classList.add('animate-left-visible');
+          } else if (entry.target.classList.contains('animate-bottom')) {
+            entry.target.classList.add('animate-bottom-visible');
+          } else if (entry.target.classList.contains('animate-right')) {
+            entry.target.classList.add('animate-right-visible');
+          }
+        } else {
+          // Remover la clase visible para permitir la animación de salida (opcional)
+          if (entry.target.classList.contains('animate-text')) {
+            entry.target.classList.remove('animate-text-visible');
+          } else if (entry.target.classList.contains('animate-left')) {
+            entry.target.classList.remove('animate-left-visible');
+          } else if (entry.target.classList.contains('animate-bottom')) {
+            entry.target.classList.remove('animate-bottom-visible');
+          } else if (entry.target.classList.contains('animate-right')) {
+            entry.target.classList.remove('animate-right-visible');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observar los elementos
+    observer.observe(textElement!!);
+    elementsLeft.forEach((element) => observer.observe(element));
+    elementsBottom.forEach((element) => observer.observe(element));
+    elementsRight.forEach((element) => observer.observe(element));
+  });
+</script>

@@ -1,51 +1,163 @@
 ---
 import Card from "./Card.astro";
-
 ---
 
+<div class="grid grid-cols-2 gap-10">
+  <!-- Primera columna con animación desde la izquierda -->
+  <div class="slide-left opacity-0">
+    <div class="h-[250px]">
+      <h3 class="text-ivydisplay text-3xl my-4">Oslo Propiedades</h3>
+      <p class="mb-10 text-2xl pb-8">
+        Ofrece un servicio completo en la compra y venta de propiedades.
+        Nuestro equipo está dedicado a encontrar el hogar o la inversión
+        perfecta para cada cliente, brindando asesoramiento personalizado y
+        soluciones a medida.
+      </p>
+    </div>
+    <Card
+      title="Propiedades"
+      cel="+54 11 1234 5678"
+      contact="contacto@oslopropiedades.com"
+      web="oslopropiedades.com.ar"
+      href="/unit"
+      logo="/logos/Oslo-01.png"
+      alt="isotipo oslo"
+      color="orange-oslo"
+      width="w-[65%]"
+    />
+  </div>
 
-        <div class="grid grid-cols-2 gap-10">
-          <div>
-            <div class="h-[250px]">
-              <h3 class="text-ivydisplay text-3xl my-4">Oslo Propiedades</h3>
-              <p class="mb-10 text-2xl pb-8">
-                Ofrece un servicio completo en la compra y venta de propiedades.
-                Nuestro equipo está dedicado a encontrar el hogar o la inversión
-                perfecta para cada cliente, brindando asesoramiento personalizado y
-                soluciones a medida.
-              </p>
-            </div>            
-            <Card
-              title="Propiedades"
-              cel="+54 11 1234 5678"
-              contact="contacto@oslopropiedades.com"
-              web="oslopropiedades.com.ar"
-              href="/unit"
-              logo="/logos/Oslo-01.png"
-              alt="isotipo oslo"
-              color="orange-oslo"
-              width="w-[65%]"
-            />
-          </div>
-          <div>
-            <div class="h-[250px]">
-              <h3 class="text-ivydisplay text-3xl my-4">PBG Desarrollos</h3>
-              <p class="mb-10 text-2xl pb-8">
-                Se especializa en crear proyectos innovadores que redefinen el
-                estándar de calidad. Nuestro enfoque integral asegura resultados
-                excepcionales desde la planificación hasta la entrega.
-              </p>
-            </div>
-            <Card
-              title="Desarrollos"
-              cel="+54 11 1234 5678"
-              contact="contacto@pbgdesarrollos.com"
-              web="pbgdesarrollos.com.ar"
-              href="/unit"
-              logo="/logos/PBG-01.png"
-              alt="isotipo oslo"
-              color="grey-oslo"
-              width="w-[78%]"
-            />
-          </div>
-        </div>
+  <!-- Segunda columna con animación desde la derecha -->
+  <div class="slide-right opacity-0">
+    <div class="h-[250px]">
+      <h3 class="text-ivydisplay text-3xl my-4">PBG Desarrollos</h3>
+      <p class="mb-10 text-2xl pb-8">
+        Se especializa en crear proyectos innovadores que redefinen el
+        estándar de calidad. Nuestro enfoque integral asegura resultados
+        excepcionales desde la planificación hasta la entrega.
+      </p>
+    </div>
+    <Card
+      title="Desarrollos"
+      cel="+54 11 1234 5678"
+      contact="contacto@pbgdesarrollos.com"
+      web="pbgdesarrollos.com.ar"
+      href="/unit"
+      logo="/logos/PBG-01.png"
+      alt="isotipo oslo"
+      color="grey-oslo"
+      width="w-[78%]"
+    />
+  </div>
+</div>
+
+
+
+
+<style>
+/* Animación de entrada desde la izquierda */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de salida hacia la izquierda */
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+}
+
+/* Animación de entrada desde la derecha */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de salida hacia la derecha */
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Clases de animación */
+.slide-left-visible {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-left-hidden {
+  animation: slideOutLeft 0.8s ease-out forwards;
+}
+
+.slide-right-visible {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.slide-right-hidden {
+  animation: slideOutRight 0.8s ease-out forwards;
+}
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const elementsLeft = document.querySelectorAll('.slide-left');
+    const elementsRight = document.querySelectorAll('.slide-right');
+
+    // Opciones del IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1, // Activar la animación cuando el 10% del elemento esté visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Cuando el elemento es visible en el viewport
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('slide-left')) {
+            entry.target.classList.remove('slide-left-hidden');
+            entry.target.classList.add('slide-left-visible');
+          } else if (entry.target.classList.contains('slide-right')) {
+            entry.target.classList.remove('slide-right-hidden');
+            entry.target.classList.add('slide-right-visible');
+          }
+        } else {
+          // Cuando el elemento sale del viewport
+          if (entry.target.classList.contains('slide-left')) {
+            entry.target.classList.remove('slide-left-visible');
+            entry.target.classList.add('slide-left-hidden');
+          } else if (entry.target.classList.contains('slide-right')) {
+            entry.target.classList.remove('slide-right-visible');
+            entry.target.classList.add('slide-right-hidden');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observa todos los elementos con las clases 'slide-left' y 'slide-right'
+    elementsLeft.forEach((element) => observer.observe(element));
+    elementsRight.forEach((element) => observer.observe(element));
+  });
+</script>

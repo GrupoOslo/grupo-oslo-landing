@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "find src/images -type f \\( -iname '*.jpg' -o -iname '*.png' \\) -exec cwebp -q 80 {} -o ${0%.*}.webp \\;",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"

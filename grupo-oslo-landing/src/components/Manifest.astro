@@ -1,10 +1,11 @@
 ---
+
 ---
 
-<div class="flex justify-center py-8 uppercase">
+<div class="flex justify-center py-8 uppercase animate-on-scroll">
   <h2 class="md:text-2xl">Manifiesto</h2>
 </div>
-<div class="flex justify-center">
+<div class="flex justify-center animate-on-scroll">
   <p class="text-2xl text-center md:text-4xl md:w-[75%]">
     Somos un <span class="text-ivydisplay uppercase">grupo empresario</span>
     dedicado de forma integral al <span class="text-ivydisplay">ciclo del</span>
@@ -13,3 +14,63 @@
     comercialización de propiedades propias y de terceros.
   </p>
 </div>
+
+
+<style>
+/* Estilo inicial de los elementos que se animarán */
+.animate-on-scroll {
+  opacity: 0; /* Elemento invisible */
+  transform: translateY(50px); /* Elemento desplazado hacia abajo */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Suavizar la animación */
+}
+
+/* Estilo cuando el elemento es visible */
+.animate-on-scroll.visible {
+  opacity: 1; /* Elemento visible */
+  transform: translateY(0); /* Mover el elemento a su posición original */
+}
+
+</style>
+
+<script>
+  // Ejecutar el script una vez que el DOM esté completamente cargado
+  document.addEventListener('DOMContentLoaded', function () {
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
+    // Función para verificar si un elemento está en la vista
+    const elementInView = (el: Element, dividend = 1) => {
+      const elementTop = el.getBoundingClientRect().top;
+
+      // Retorna true si el elemento está en la vista
+      return (
+        elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+      );
+    };
+
+    // Función para aplicar la clase `visible` cuando el elemento está en la vista
+    const displayScrollElement = (element: Element) => {
+      element.classList.add('visible');
+    };
+
+    // Función para remover la clase `visible` (opcional si deseas animar de nuevo)
+    const hideScrollElement = (element: Element) => {
+      element.classList.remove('visible');
+    };
+
+    // Función principal que verifica cada elemento y le aplica la animación
+    const handleScrollAnimation = () => {
+      scrollElements.forEach((el) => {
+        if (elementInView(el, 1.25)) {
+          displayScrollElement(el);
+        } else {
+          hideScrollElement(el); // Opcional, para revertir la animación si se desea
+        }
+      });
+    };
+
+    // Escuchar el evento de scroll en la ventana
+    window.addEventListener('scroll', () => {
+      handleScrollAnimation();
+    });
+  });
+</script>

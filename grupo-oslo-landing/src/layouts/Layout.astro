@@ -1,6 +1,5 @@
 ---
 import BurgerMenu from '../components/BurgerMenu';
-import Logo from '../components/Logo.astro';
 import Navbar from '../components/Navbar.astro';
 
 interface Props {
@@ -21,97 +20,75 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
-    <!-- Navbar visible solo en pantallas grandes -->
-    <div class="hidden lg:block">
-      <Navbar />
-    </div>
-
-		<div class="hidden lg:block transition-all duration-300 z-50 pt-8" id="logo">
-			<img 
-				src="logos/Logos-02.png"
-				alt="astro logo"
-				class="p-10 sm:p-20 transition-all duration-300"
-			/>
-		</div>
-
-    <!-- BurgerMenu visible solo en pantallas pequeñas -->
-    <div class="block lg:hidden fixed top-0 right-0 w-full z-50">
-      <BurgerMenu  client:load/>
-    </div>
-
-    <slot />
-		<section id="footer">
-			<footer class="bg-greyoslodark p-4 py-40 relative">
-				<!--  Footer visible solo en pantallas pequeñas -->
-				<div class="w-full h-[500px] absolute top-[-250px] left-0 rounded-lg p-4 md:px-20">
-					<img src="images/SUM-Salon-Gourmet.jpg" alt="" class="object-cover w-full h-full rounded-lg">
-				</div>
-				<div class="block lg:hidden">
-					<div class="flex justify-center my-32">
-						<img src="logos/Logos-03.png" alt="" class="logo-invert w-20">
-						<p class="text-white text-2xl p-2">LET´S WORK TOGETHER</p>
-					</div>
-					<div class="flex mb-20">
-						<div id="contacto" class="text-white text-xs pe-6">
-							<ul>
-								<li><p>GRUPO OSLO</p></li>
-								<li><p>+54 (11) 5236-0400</p></li>
-								<li><p>Av. del Libertador 5936 12°B</p></li>
-							</ul>			
-						</div>
-						<div id="links" class="text-white pe-6 text-xs">
-							<ul>
-								<li><a href="#">HOME</a></li>
-								<li><a href="#">MANIFIESTO</a></li>
-								<li><a href="#">UNIDADES</a></li>
-								<li><a href="#">EQUIPO</a></li>
-								<li><a href="#">PARTNERS</a></li>
-							</ul>		
-						</div>
-						<div id="social" class="text-white">
-							<a href="#">LINKEDIN</a>
-						</div>
-				</div>
-				<!--  Footer visible solo en pantallas pequeñas -->
-			
-	
+  <body class="relative min-h-screen z-0 overflow-x-hidden">
+		<!-- Contenedor principal del contenido -->
+		<div class="z-40 relative bg-white mb-[1500px]">
+			<!-- Navbar visible solo en pantallas grandes -->
+			<div class="hidden lg:block z-50">
+				<Navbar />
 			</div>
-			<!-- Footer visible solo en pantallas grandes -->
+	
+			<!-- Logo animado -->
+			<div class="hidden lg:block z-50 pt-8 fixed animated-logo" id="logo">
+				<img 
+					src="logos/Logos-02.png"
+					alt="Oslo logo"
+					class="p-10 sm:p-20 "
+				/>
+			</div>
+	
+			<!-- BurgerMenu visible solo en pantallas pequeñas -->
+			<div class="block lg:hidden fixed top-0 right-0 w-full z-50">
+				<BurgerMenu client:load />
+			</div>
+	
+			<!-- Contenido del slot -->
+			<slot />
+		</div>
+	
+		<!-- Footer fijo en el fondo con z-index más bajo -->
+		<section id="footer" class="fixed inset-0 z-0 pointer-events-none">
+			<footer class="absolute bottom-0 left-0 w-full bg-greyoslodark p-4 py-40 z-0">			
+				<!-- Contenido del footer para pantallas pequeñas -->
+				<div class="block lg:hidden text-center text-white">
+					<p class="text-3xl">LET'S WORK TOGETHER</p>
+					<p>GRUPO OSLO</p>
+					<p>+54 (11) 5236-0400</p>
+					<p>Av. del Libertador 5936 12°B</p>
+				</div>
+				
+				<!-- Contenido del footer para pantallas grandes -->
 				<div class="hidden lg:block py-28">
-					<div class="grid grid-cols-1 md:grid-cols-[3fr,1fr,1fr,1fr] gap-10 my-20 px-20">
+					<div class="grid grid-cols-1 md:grid-cols-[3fr,1fr,1fr,1fr] gap-10 my-20 px-20 text-white">
 						<div class="flex justify-center">
 							<img src="logos/Logos-03.png" alt="" class="logo-invert w-40">
-							<p class="text-white text-2xl md:text-5xl p-2">LET´S WORK TOGETHER</p>
+							<p class="text-2xl md:text-5xl">LET'S WORK TOGETHER</p>
 						</div>
-						<div id="links" class="text-white pe-6 text-xs">
+						<div>
+							<p>GRUPO OSLO</p>
+							<p>+54 (11) 5236-0400</p>
+							<p>Av. del Libertador 5936 12°B</p>
+						</div>
+						<div>
 							<ul>
 								<li><a href="#">HOME</a></li>
 								<li><a href="#">MANIFIESTO</a></li>
 								<li><a href="#">UNIDADES</a></li>
 								<li><a href="#">EQUIPO</a></li>
 								<li><a href="#">PARTNERS</a></li>
-							</ul>		
+							</ul>
 						</div>
-						<div id="social" class="text-white">
+						<div>
 							<a href="#">LINKEDIN</a>
-						</div>
-						<div id="contacto" class="text-white text-xs pe-6">
-							<ul>
-								<li><p>GRUPO OSLO</p></li>
-								<li><p>+54 (11) 5236-0400</p></li>
-								<li><p>Av. del Libertador 5936 12°B</p></li>
-							</ul>			
 						</div>
 					</div>
 				</div>
-				<!-- Footer visible solo en pantallas grandes -->
 				<div id="logo-footer" class="md:px-32">
 					<img src="logos/Logos-02.png" alt="" class="logo-invert">
 				</div>
 			</footer>
 		</section>
-  </body>
+	</body>
 </html>
 
 <style>
@@ -170,6 +147,13 @@ const { title } = Astro.props;
 	}
 </style>
 <style is:global>
+
+	body {
+		overflow-x: hidden;
+		z-index: 1000;
+		background-color: white;
+	}
+
 	.text-ivydisplay {
 		font-family: 'IvyPrestoTextLightItalic', sans-serif;
 		font-weight: 500;
@@ -189,6 +173,44 @@ const { title } = Astro.props;
 	.logo-invert {
 		filter: invert(1);
 	}
+
+	@keyframes animated {	
+		0% {
+			/* opacity: 1; */
+			scale: 1 
+		}
+		5% {
+			/* opacity: 1; */
+			scale: 20%;
+			transform-origin: top; 
+			/* transform: translateY(-120%); */
+		}
+		10% {
+			/* opacity: 1; */
+			scale: 20%;
+			transform-origin: top; 
+			/* transform: translateY(-180%); */
+		}		
+		95% {
+			/* opacity: 1; */
+			scale: 20%;
+			transform-origin: top; 
+			/* transform: translateY(-100%); */
+		}
+		100% {
+			/* opacity: 1; */
+			scale: 20%;
+			transform-origin: top; 
+			/* transform: translateY(-100%); */
+		}
+	}
+
+	.animated-logo {
+		animation: animated auto linear;	
+		animation-timeline: scroll(root block);
+		/* animation-name: animated; */
+	}
+
 </style>
 
 

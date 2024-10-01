@@ -1,28 +1,26 @@
 ---
 ---
 
-<div class="flex justify-center">
+<div class="flex justify-center animate-text opacity-0">
   <p class="text-2xl md:text-4xl md:w-[75%] text-center text-white px-4">
-    Con una mentalidad <span class="text-ivydisplay uppercase">joven e innovadora,</span> nuestra visión es <span class="text-ivydisplay uppercase">liderar el mercado,</span> garantizar el <span class="text-ivydisplay uppercase">éxito en los negocios,</span> con calidad e innovación como pilares fundamentales y mejorar continuamente
-    la experiencia del cliente
+    Con una mentalidad <span class="text-ivydisplay uppercase">joven e innovadora,</span> nuestra visión es <span class="text-ivydisplay uppercase">liderar el mercado,</span> garantizar el <span class="text-ivydisplay uppercase">éxito en los negocios,</span> con calidad e innovación como pilares fundamentales y mejorar continuamente la experiencia del cliente
   </p>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-20 py-4 px-8 md:px-32">
-  <div>
+  <div class="animate-left opacity-0">
     <div class="h-[400px] md:h-[300px] lg:h-[400px] xl:h-[600px] w-full overflow-hidden rounded-xl">
       <img
         src="images/EQUIPO-GRUPO-OSLO-(9).jpg"
         alt="Patricio Rozenblum | Co-founder"
         class="object-cover object-top w-full my-4 rounded-xl"
       />
- 
     </div>
     <p class="text-white mb-4 pt-4">
       Patricio Rozenblum | <span class="text-ivydisplay">Co-founder</span>
     </p>
   </div>
-  <div>
+  <div class="animate-bottom opacity-0">
     <div class="h-[400px] md:h-[300px] lg:h-[400px] xl:h-[600px] w-full overflow-hidden rounded-xl">
       <img
         src="images/EQUIPO-GRUPO-OSLO-(5).jpg"
@@ -34,7 +32,7 @@
       Marcelo Saul | <span class="text-ivydisplay">Co-founder</span>
     </p>
   </div>
-  <div>
+  <div class="animate-right opacity-0">
     <div class="h-[400px] md:h-[300px] lg:h-[400px] xl:h-[600px] w-full overflow-hidden rounded-xl">
       <img
         src="images/EQUIPO-GRUPO-OSLO-(19).jpg"
@@ -50,3 +48,129 @@
 <br />
 <br />
 <br />
+
+<style>
+  /* Animación del texto apareciendo desde abajo */
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de la primera imagen desde la izquierda */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de la segunda imagen desde abajo */
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animación de la tercera imagen desde la derecha */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Clases de animación */
+.animate-text-visible {
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+.animate-left-visible {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-bottom-visible {
+  animation: slideInBottom 0.8s ease-out forwards;
+}
+
+.animate-right-visible {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Clases ocultas iniciales */
+.animate-text,
+.animate-left,
+.animate-bottom,
+.animate-right {
+  opacity: 0; /* Inicialmente invisible */
+}
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar los elementos que serán animados
+    const textElement = document.querySelector('.animate-text');
+    const elementsLeft = document.querySelectorAll('.animate-left');
+    const elementsBottom = document.querySelectorAll('.animate-bottom');
+    const elementsRight = document.querySelectorAll('.animate-right');
+
+    // Opciones del IntersectionObserver
+    const observerOptions = {
+      threshold: 0.1, // Activar cuando el 10% del elemento esté visible
+    };
+
+    // Función para manejar la entrada de los elementos en la vista
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Cuando el elemento entra en la vista
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('animate-text')) {
+            entry.target.classList.add('animate-text-visible');
+          } else if (entry.target.classList.contains('animate-left')) {
+            entry.target.classList.add('animate-left-visible');
+          } else if (entry.target.classList.contains('animate-bottom')) {
+            entry.target.classList.add('animate-bottom-visible');
+          } else if (entry.target.classList.contains('animate-right')) {
+            entry.target.classList.add('animate-right-visible');
+          }
+        } else {
+          // Remover la clase visible para permitir la animación de salida (opcional)
+          if (entry.target.classList.contains('animate-text')) {
+            entry.target.classList.remove('animate-text-visible');
+          } else if (entry.target.classList.contains('animate-left')) {
+            entry.target.classList.remove('animate-left-visible');
+          } else if (entry.target.classList.contains('animate-bottom')) {
+            entry.target.classList.remove('animate-bottom-visible');
+          } else if (entry.target.classList.contains('animate-right')) {
+            entry.target.classList.remove('animate-right-visible');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observar los elementos
+    observer.observe(textElement!!);
+    elementsLeft.forEach((element) => observer.observe(element));
+    elementsBottom.forEach((element) => observer.observe(element));
+    elementsRight.forEach((element) => observer.observe(element));
+  });
+</script>

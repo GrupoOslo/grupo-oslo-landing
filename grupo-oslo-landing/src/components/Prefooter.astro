@@ -1,9 +1,62 @@
----
----
-
-<div class="flex justify-center md:py-32">
+<div class="flex justify-center md:py-32 relative">
   <p class="text-xl text-center md:w-[75%] md:text-4xl">
     Grupo Oslo transforma el <span class="text-ivydisplay uppercase">Real Estate</span> a través de sus 
     unidades de negocio dedicadas al desarrollo y la gestión de <span class="text-ivydisplay uppercase">propiedades y emprendimientos.</span> 
   </p>
+  <div class="w-full h-[700px] absolute top-[500px]" id="animated-img-container">
+    <!-- Imagen de fondo del footer -->
+    <img src="images/SUM-Salon-Gourmet.jpg" alt="SUM Salon Gourmet" class="object-cover w-full h-full animated-img" id="salon-img">
+  </div>
 </div>
+
+<style>
+  /* Animación de escala para achicar la imagen */
+  @keyframes shrinkImage {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.85);
+    }
+  }
+
+  /* Clase que aplica la animación de escala */
+  .animated-img {
+    animation: shrinkImage 0.5s ease forwards;
+    animation-play-state: paused; /* La animación está pausada por defecto */
+    animation-direction: normal; /* Direccion inicial de la animación */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtener el contenedor de la imagen
+    const imageElement = document.getElementById('salon-img');
+
+    // Verificar si el contenedor de la imagen existe
+    if (imageElement) {
+      // Crear el IntersectionObserver para monitorear la visibilidad del contenedor de la imagen
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio === 1) {
+              // Cuando la imagen está completamente visible, iniciar la animación en dirección normal
+              imageElement.style.animation = 'shrinkImage 0.5s ease forwards';
+            } else if (!entry.isIntersecting) {
+              // Cuando la imagen deja de estar completamente visible, aplicar la animación en dirección inversa
+              imageElement.style.animation = 'shrinkImage 0.5s ease reverse forwards';
+            }
+          });
+        },
+        {
+          threshold: 0.5, // Activar solo cuando el 100% de la imagen esté visible
+        }
+      );
+
+      // Observar el contenedor de la imagen
+      observer.observe(imageElement);
+    } else {
+      console.error('El contenedor de la imagen no se encontró en el DOM');
+    }
+  });
+</script>

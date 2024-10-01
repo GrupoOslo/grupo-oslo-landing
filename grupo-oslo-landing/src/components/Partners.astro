@@ -1,13 +1,77 @@
 ---
+
 ---
 
-<div class="md:w-[75%]">
-       <div class="flex flex-col">
-         <h3 class="text-4xl uppercase">Partners</h3>
-         <p class="text-xl mt-4 md:text-4xl">
-           Contamos con el respaldo de <span class="text-ivydisplay uppercase">prestigiosos estudios</span>
-           de arquitectura y diseño, garantizando así la calidad y excelencia en todos
-           nuestros proyectos.
-         </p>
-       </div>
-      </div>
+<div class="md:w-[75%] animate-on-scroll">
+  <div class="flex flex-col">
+    <h3 class="text-4xl uppercase">Partners</h3>
+    <p class="text-xl mt-4 md:text-4xl">
+      Contamos con el respaldo de
+      <span class="text-ivydisplay uppercase">prestigiosos estudios</span> de
+      arquitectura y diseño, garantizando así la calidad y excelencia en todos
+      nuestros proyectos.
+    </p>
+  </div>
+</div>
+
+
+<style>
+/* Estilo inicial de los elementos que se animarán */
+.animate-on-scroll {
+  opacity: 0; /* Elemento invisible */
+  transform: translateY(50px); /* Elemento desplazado hacia abajo */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Suavizar la animación */
+}
+
+/* Estilo cuando el elemento es visible */
+.animate-on-scroll.visible {
+  opacity: 1; /* Elemento visible */
+  transform: translateY(0); /* Mover el elemento a su posición original */
+}
+
+
+
+</style>
+
+<script>
+  // Ejecutar el script una vez que el DOM esté completamente cargado
+  document.addEventListener('DOMContentLoaded', function () {
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
+    // Función para verificar si un elemento está en la vista
+    const elementInView = (el: Element, dividend = 1) => {
+      const elementTop = el.getBoundingClientRect().top;
+
+      // Retorna true si el elemento está en la vista
+      return (
+        elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+      );
+    };
+
+    // Función para aplicar la clase `visible` cuando el elemento está en la vista
+    const displayScrollElement = (element: Element) => {
+      element.classList.add('visible');
+    };
+
+    // Función para remover la clase `visible` (opcional si deseas animar de nuevo)
+    const hideScrollElement = (element: Element) => {
+      element.classList.remove('visible');
+    };
+
+    // Función principal que verifica cada elemento y le aplica la animación
+    const handleScrollAnimation = () => {
+      scrollElements.forEach((el) => {
+        if (elementInView(el, 1.25)) {
+          displayScrollElement(el);
+        } else {
+          hideScrollElement(el); // Opcional, para revertir la animación si se desea
+        }
+      });
+    };
+
+    // Escuchar el evento de scroll en la ventana
+    window.addEventListener('scroll', () => {
+      handleScrollAnimation();
+    });
+  });
+</script>

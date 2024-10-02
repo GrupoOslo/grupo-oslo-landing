@@ -5,9 +5,8 @@
  "scripts": {
   "dev": "astro dev",
   "start": "astro preview",
-  "optimize:images": "for file in $(find . -name '*.jpg'); do cwebp -q 80 \"$file\" -o \"${file%.jpg}.webp\"; done;",
+  "prebuild": "for file in $(find . -name '*.jpg'); do cwebp -q 80 \"$file\" -o \"${file%.jpg}.webp\"; done;",
   "build": "astro build",
-  "build:full": "npm run optimize:images && npm run build",
   "preview": "astro preview",
   "astro": "astro"
   },

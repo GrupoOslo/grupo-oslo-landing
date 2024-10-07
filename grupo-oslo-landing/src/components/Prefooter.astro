@@ -20,45 +20,44 @@
 </div>
 
 <style>
-  @keyframes animatedImg {	
-		0% {
-			/* opacity: 1; */
-			scale: 200% 
-		}
-		
-		100% {
-			/* opacity: 1; */
-			scale: 90%;
-			transform-origin: top; 
-			/* transform: translateY(-100%); */
-		}
-	}
-
-	.animated-img {
-		animation: animatedImg auto linear;	
-		animation-timeline: scroll(block);
-		/* animation-name: animated; */
-	}	
+	<style>
+  /* Estilo inicial para la imagen */
+  .animated-img {
+    transform: scale(2); /* Escala inicial 200% */
+    transform-origin: top; /* Mantener el origen de la transformación en la parte superior */
+    transition: transform 0.3s ease-out; /* Transición para suavizar los cambios */
+  }
 </style>
+</style>
+
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const animatedImg = document.getElementById('.animated-img');
-		window.addEventListener('scroll', function() {
-			const scrollY = window.scrollY;
-			const maxScale = 2;
-			const minScale = 0.1;
+  document.addEventListener('DOMContentLoaded', function () {
+    const animatedImg = document.getElementById('animated-img');
 
-			// Calcula el nuevo tamaño del logo basado en el scroll
-			let scale = maxScale - (scrollY / 1000); // Ajusta el divisor para controlar la velocidad del escalado
+    if (animatedImg) {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight; // Altura total del documento menos la ventana visible
+      console.log(`Max Scroll: ${maxScroll}`);
 
-			// Limita el tamaño del logo para que no sea menor que minScale
-			if (scale < minScale) scale = minScale;
+      window.addEventListener('scroll', function () {
+        const scrollY = window.scrollY;
+        // console.log(`Scroll Y: ${scrollY}`);
 
-			// Aplica el nuevo tamaño al logo
-			if (animatedImg) {
-				animatedImg.style.transform = `scale(${scale})`;
-				animatedImg.style.transformOrigin = 'top'; // Asegúrate de que el origen de transformación sea "top"
-			}
-		})
-	})
+        // Calcular la proporción del scroll actual basado en maxScroll (rango entre 0 y 1)
+        const scrollProgress = Math.min(scrollY / maxScroll, 1); // Asegura que no exceda 1
+        // console.log(`Scroll Progress: ${scrollProgress}`);
+
+        // Definir el rango de escalado
+        const maxScale = 2; // Escala máxima (200%)
+        const minScale = 0.9; // Escala mínima (90%)
+
+        // Calcular la nueva escala basada en el progreso del scroll
+        const scale = maxScale - (maxScale - minScale) * scrollProgress;
+        // console.log(`Scale: ${scale}`);
+
+        // Aplicar el nuevo tamaño a la imagen
+        animatedImg.style.transform = `scale(${scale})`;
+        animatedImg.style.transformOrigin = 'top'; // Asegura que el origen de la transformación sea "top"
+      });
+    }
+  });
 </script>

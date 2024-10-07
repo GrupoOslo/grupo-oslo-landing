@@ -7,7 +7,7 @@
     unidades de negocio dedicadas al desarrollo y la gestión de <span class="text-ivydisplay uppercase">propiedades y emprendimientos.</span> 
   </p>
 	<!-- Imagen de fondo web -->
-  <div class="hidden lg:block w-full h-[400px] p-4 md:h-[700px] absolute top-[200px] md:top-[500px] animated-img">
+  <div class="hidden lg:block w-full h-[400px] p-4 md:h-[700px] absolute top-[200px] md:top-[500px] animated-img" id="animated-img">
     <!-- Imagen de fondo del footer -->
     <img src="images/SUM-Salon-Gourmet.webp" alt="" class="object-cover w-full h-full rounded-xl">
   </div>
@@ -40,3 +40,25 @@
 		/* animation-name: animated; */
 	}	
 </style>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const animatedImg = document.getElementById('.animated-img');
+		window.addEventListener('scroll', function() {
+			const scrollY = window.scrollY;
+			const maxScale = 2;
+			const minScale = 0.1;
+
+			// Calcula el nuevo tamaño del logo basado en el scroll
+			let scale = maxScale - (scrollY / 1000); // Ajusta el divisor para controlar la velocidad del escalado
+
+			// Limita el tamaño del logo para que no sea menor que minScale
+			if (scale < minScale) scale = minScale;
+
+			// Aplica el nuevo tamaño al logo
+			if (animatedImg) {
+				animatedImg.style.transform = `scale(${scale})`;
+				animatedImg.style.transformOrigin = 'top'; // Asegúrate de que el origen de transformación sea "top"
+			}
+		})
+	})
+</script>

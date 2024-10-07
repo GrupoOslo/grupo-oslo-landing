@@ -30,21 +30,31 @@
 </style>
 </style>
 
+<!-- Script para manejar la animación basada en el scroll -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const animatedImg = document.getElementById('animated-img');
 
+    // Función para calcular y retornar el valor de maxScroll dinámicamente
+    const getMaxScroll = () => {
+      return document.documentElement.scrollHeight - window.innerHeight;
+    };
+
     if (animatedImg) {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight; // Altura total del documento menos la ventana visible
-      console.log(`Max Scroll: ${maxScroll}`);
+      // Calcular maxScroll inicialmente y luego ajustarlo dinámicamente
+      let maxScroll = getMaxScroll();
+      console.log(`Max Scroll (Initial): ${maxScroll}`);
 
       window.addEventListener('scroll', function () {
         const scrollY = window.scrollY;
-        // console.log(`Scroll Y: ${scrollY}`);
+
+        // Recalcular maxScroll si cambia la altura del documento
+        maxScroll = getMaxScroll();
+        console.log(`Max Scroll (Updated): ${maxScroll}`);
 
         // Calcular la proporción del scroll actual basado en maxScroll (rango entre 0 y 1)
         const scrollProgress = Math.min(scrollY / maxScroll, 1); // Asegura que no exceda 1
-        // console.log(`Scroll Progress: ${scrollProgress}`);
+        console.log(`Scroll Progress: ${scrollProgress}`);
 
         // Definir el rango de escalado
         const maxScale = 2; // Escala máxima (200%)
@@ -52,11 +62,17 @@
 
         // Calcular la nueva escala basada en el progreso del scroll
         const scale = maxScale - (maxScale - minScale) * scrollProgress;
-        // console.log(`Scale: ${scale}`);
+        console.log(`Scale: ${scale}`);
 
         // Aplicar el nuevo tamaño a la imagen
         animatedImg.style.transform = `scale(${scale})`;
         animatedImg.style.transformOrigin = 'top'; // Asegura que el origen de la transformación sea "top"
+      });
+
+      // Recalcular maxScroll en caso de que la ventana cambie de tamaño (resize)
+      window.addEventListener('resize', function () {
+        maxScroll = getMaxScroll();
+        console.log(`Max Scroll (On Resize): ${maxScroll}`);
       });
     }
   });

@@ -7,7 +7,6 @@ interface Props {
 }
 
 const { title } = Astro.props;
-
 ---
 
 <!doctype html>
@@ -33,7 +32,7 @@ const { title } = Astro.props;
 				<img 
 					src="logos/Logos-02.png"
 					alt="Oslo logo"
-					class="p-10 sm:p-20 "
+					class="p-10 sm:p-20"
 				/>
 			</div>
 	
@@ -111,6 +110,33 @@ const { title } = Astro.props;
 			</footer>
 	</section>
 	
+	<!-- Script para manejar la animación basada en el scroll -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const logo = document.getElementById('logo');
+			
+			// Escucha el evento de scroll
+			window.addEventListener('scroll', function() {
+				// Calcula la cantidad de scroll en porcentaje (0 a 1)
+				const scrollY = window.scrollY;
+				const maxScale = 1;
+				const minScale = 0.1;
+
+				// Calcula el nuevo tamaño del logo basado en el scroll
+				let scale = maxScale - (scrollY / 1000); // Ajusta el divisor para controlar la velocidad del escalado
+
+				// Limita el tamaño del logo para que no sea menor que minScale
+				if (scale < minScale) scale = minScale;
+
+				// Aplica el nuevo tamaño al logo
+				if (logo) {
+					logo.style.transform = `scale(${scale})`;
+					logo.style.transformOrigin = 'top'; // Asegúrate de que el origen de transformación sea "top"
+				}
+			});
+		});
+	</script>
+
 	</body>
 </html>
 
@@ -143,7 +169,6 @@ const { title } = Astro.props;
 		font-family: 'IvyPrestoTextSemiBold';
 		src: url('/fonts/IvyPrestoText-SemiBold.woff2') format('woff2'),
 				url('/fonts/IvyPrestoText-SemiBold.woff') format('woff');
-				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
 		font-weight: normal;
 		font-style: normal;
 	}
@@ -151,7 +176,6 @@ const { title } = Astro.props;
 		font-family: 'IvyPrestoTextLight';
 		src: url('/fonts/IvyPrestoDisplay-Light.woff2') format('woff2'),
 				url('/fonts/IvyPrestoDisplay-Light.woff') format('woff');
-				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
 		font-weight: normal;
 		font-style: normal;
 	}
@@ -159,7 +183,6 @@ const { title } = Astro.props;
 		font-family: 'IvyPrestoTextLightItalic';
 		src: url('/fonts/IvyPrestoDisplay-LightItalic.woff2') format('woff2'),
 				url('/fonts/IvyPrestoDisplay-LightItalic.woff') format('woff');
-				/* url('/fonts/Manrope-Bold.ttf') format('truetype'); */
 		font-weight: normal;
 		font-style: normal;
 	}
@@ -196,44 +219,4 @@ const { title } = Astro.props;
 	.logo-invert {
 		filter: invert(1);
 	}
-
-	@keyframes animated {	
-		0% {
-			/* opacity: 1; */
-			scale: 1 
-		}
-		5% {
-			/* opacity: 1; */
-			scale: 20%;
-			transform-origin: top; 
-			/* transform: translateY(-120%); */
-		}
-		10% {
-			/* opacity: 1; */
-			scale: 20%;
-			transform-origin: top; 
-			/* transform: translateY(-180%); */
-		}		
-		95% {
-			/* opacity: 1; */
-			scale: 20%;
-			transform-origin: top; 
-			/* transform: translateY(-100%); */
-		}
-		100% {
-			/* opacity: 1; */
-			scale: 20%;
-			transform-origin: top; 
-			/* transform: translateY(-100%); */
-		}
-	}
-
-	.animated-logo {
-		animation: animated auto linear;	
-		animation-timeline: scroll(root block);
-		/* animation-name: animated; */
-	}
-
 </style>
-
-

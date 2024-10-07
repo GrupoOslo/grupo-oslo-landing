@@ -1,7 +1,7 @@
 ---
 ---
 
-<div class="md:flex md:justify-end md:items-center md:p-20 md:mt-[500px]">
+<div class="md:flex md:justify-end md:items-center md:p-20 md:mt-[500px]" id="fade-text">
   <div class="md:flex items-end md:w-[60%]">
     <img src="logos/Logos-03.png" alt="isotipo oslo" class="w-10 md:w-32">
     <div>
@@ -11,8 +11,39 @@
   </div>
 </div>
 
-
-
 <style>
-
+  /* Estilos iniciales para el contenedor */
+  #fade-text {
+    transition: opacity 0.3s ease-in-out; /* Transición suave de opacidad */
+    opacity: 1; /* Opacidad inicial */
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Utilizamos 'as HTMLElement' para indicar el tipo del elemento y evitar errores de TypeScript.
+    const fadeText = document.getElementById('fade-text') as HTMLElement | null;
+
+    // Comprobar que el elemento no es nulo antes de usarlo
+    if (fadeText) {
+      // Agregar evento de scroll al window
+      window.addEventListener('scroll', function() {
+        const scrollY = window.scrollY;
+        const fadeStart = 100; // El scrollY donde comienza a desvanecerse
+        const fadeEnd = 100;   // El scrollY donde termina de desvanecerse
+        const maxOpacity = 1;  // Opacidad inicial
+        const minOpacity = 0;  // Opacidad final (completamente invisible)
+
+        // Calcular la opacidad basada en el scroll
+        let opacity = maxOpacity;
+
+        if (scrollY > fadeStart) {
+          opacity = Math.max(minOpacity, maxOpacity - (scrollY - fadeStart) / (fadeEnd - fadeStart));
+        }
+
+        // Aplicar opacidad al contenedor de texto y asegurar que se convierta a string
+        fadeText.style.opacity = `${opacity}`; // Convertir opacity a string
+      });
+    }
+  });
+</script>

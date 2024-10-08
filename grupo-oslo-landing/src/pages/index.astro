@@ -75,7 +75,7 @@ import TeamMobile from "../components/TeamMobile.astro";
     <!-- seccion territorios -->
     <section id="territorios" class="mb-28">
       <div class="w-full overflow-hidden relative p-4 lg:px-32 mt-20">
-        <h2 class="text-4xl uppercase">
+        <h2 class="text-4xl md:text-6xl uppercase">
           Territorios <span class="text-ivydisplay">e</span> Industrias:
         </h2>
         <!-- Solo en pantallas mobiles -->
@@ -97,10 +97,17 @@ import TeamMobile from "../components/TeamMobile.astro";
       <!-- solo en pantallas grandes -->
     </section>
 
-    <!-- seccion imagen team -->
-    <section id="imagen-team" class="mb-20">
-      <img src="images/EQUIPO-GRUPO-OSLO-grupal.webp" alt="Equipo Grupo Oslo" />      
+    <!-- seccion imagen team web -->
+    <section id="imagen-team" class="mb-20 hidden lg:block">
+      <div class="parallax-container relative h-[800px] md:h-[900px] mt-5 overflow-hidden">
+        <div class="parallax-image-team absolute inset-0 bg-cover bg-center"></div>
+      </div>
+      <!-- <img src="images/EQUIPO-GRUPO-OSLO-grupal.webp" alt="Equipo Grupo Oslo" />       -->
     </section>
+       <!-- seccion imagen team mobile-->
+       <section id="imagen-team" class="mb-20 block lg:hidden">
+        <img src="images/EQUIPO-GRUPO-OSLO-grupal.webp" alt="Equipo Grupo Oslo" />      
+      </section>
 
     <!-- seccion partners -->
     <section id="partners" class="my-8 md:my-20 p-4 md:px-32">
@@ -144,6 +151,17 @@ import TeamMobile from "../components/TeamMobile.astro";
   top: -1200px;
   left: 0;
 }
+.parallax-image-team {
+  background-image: url('/public/images/EQUIPO-GRUPO-OSLO-grupal.webp'); 
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 150%; 
+  position: absolute;
+  top: -2500px;
+  left: 0;
+}
 
 </style>
 
@@ -152,6 +170,7 @@ import TeamMobile from "../components/TeamMobile.astro";
     // Seleccionar el contenedor de la imagen con verificación de tipo
     const parallaxImage = document.querySelector('.parallax-image') as HTMLElement;
     const parallaxImageGourmet = document.querySelector('.parallax-image-gourmet') as HTMLElement;
+    const parallaxImageTeam = document.querySelector('.parallax-image-team') as HTMLElement;
 
    
     if (parallaxImage) {
@@ -173,6 +192,17 @@ import TeamMobile from "../components/TeamMobile.astro";
         // Calcular el valor de desplazamiento del scroll
         const scrollPosition = window.scrollY;
         parallaxImageGourmet.style.transform = `translateY(${scrollPosition * 0.3}px)`; 
+      });
+    } else {
+      console.error('No se encontró el contenedor de la imagen parallax');
+    } 
+  
+    if (parallaxImageTeam) {
+      // Evento de scroll para aplicar el efecto parallax
+      window.addEventListener('scroll', function () {
+        // Calcular el valor de desplazamiento del scroll
+        const scrollPosition = window.scrollY;
+        parallaxImageTeam.style.transform = `translateY(${scrollPosition * 0.3}px)`; 
       });
     } else {
       console.error('No se encontró el contenedor de la imagen parallax');

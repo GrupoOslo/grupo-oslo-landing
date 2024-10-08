@@ -9,9 +9,10 @@ interface Props {
   alt?: string;
   color?: string;
   width?: string;
+  mb?: string;
 }
 
-const { href, title, cel, contact, web, logo, alt, color, width } = Astro.props;
+const { href, title, cel, contact, web, logo, alt, color, width, mb } = Astro.props;
 
 // Definir el objeto con una firma de índice
 const colors: { [key: string]: string } = {
@@ -21,18 +22,21 @@ const colors: { [key: string]: string } = {
 };
 
 const widthStyle = width ? `${width}` : "w-full";
+const mbStyle = mb ? `${mb}` : "";
 
 const bgColor = color && colors[color] ? colors[color] : "bg-orange-400";
 ---
 
-<div class={`w-full rounded-md p-4 ${bgColor} my-5`}>
-  <p class="text-maropebold uppercase bold text-white py-4">{title}/</p>
-  <p class="text-white">{cel}</p>
-  <p class="text-white">{contact}</p>
-  <a href={href} class="w-full">
-    <p class="text-ivydisplay text-xl text-white">{web}</p>
-  </a>
-  <div class="flex justify-center">
-    {logo && <img src={logo} alt={alt} class={`mt-36 ${widthStyle}`} />}
+<div class={`w-full rounded-md p-4 ${bgColor} my-5 xl:min-h-[550px] flex flex-col justify-between`}>
+  <div>
+    <p class="text-maropebold uppercase bold text-white py-4">{title}/</p>
+    <p class="text-white">{cel}</p>
+    <p class="text-white">{contact}</p>
+    <a href={href} class="w-full">
+      <p class="text-ivydisplay text-xl text-white">{web}</p>
+    </a>
+  </div>
+  <div class="flex justify-center items-end">
+    {logo && <img src={logo} alt={alt} class={`${widthStyle} ${mbStyle}`} />}
   </div>
 </div>
